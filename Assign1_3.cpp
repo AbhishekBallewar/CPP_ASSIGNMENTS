@@ -1,6 +1,6 @@
 #include<iostream>
 using namespace std;
-class Date {
+class Student {
     int roll;
     string name;
     int marks;
@@ -30,7 +30,7 @@ int menu()
     }
 };
 int main(void){
-     Date d1;
+     Student d1;
     int choice;
     bool x;
     while((choice=d1.menu())!=0){
