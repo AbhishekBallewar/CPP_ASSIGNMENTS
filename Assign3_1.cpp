@@ -1,86 +1,85 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-class BankAccount
-{
-private:
-    const int accno;
-    string name;
-    double balance;
-    static int generate_accno;
+class Time {
+   int h;
+   int m;
+   int s;
 
-public:
-    BankAccount() : accno(++generate_accno) {}
+   public :
+   Time():Time(0,0,0){}
+   Time(int h,int m,int s):h(h),m(m),s(s){}
+   int getHour(){
+    return this->h;
+   }
 
-    BankAccount(string name, double balance) : accno(++generate_accno)
-    {
-        this->name = name;
-        this->balance = balance;
-    }
+   int getMinute(){
+    return this->m;
+   }
 
-    void acceptaccountDeatils()
-    {
-        cout << "Enter name - ";
-        cin >> name;
-        cout << "Enter initial Balance - ";
-        cin >> balance;
-    }
+   int getSeconds(){
+    return this->s;
+   }
+   void acceptTime(){
+    cout<<"Enter Hours"<<endl;
+    cin>>this->h;
+    cout<<"Enter Minutes"<<endl;
+    cin>>this->m;
+    cout<<"Enter Seconds"<<endl;
+    cin>>this->s;
+   }
 
-    void displayAccountDeatils()
-    {
-        cout << "Accno = " << accno << endl;
-        cout << "Name = " << name << endl;
-        cout << "Balanace = " << balance << endl;
-    }
+   void printTime(){
+     cout<<"Time is"<<this->h<<":"<<this->m<<":"<<this->s<<endl;
+   }
+   void setHour(int h){
+    this->h =h;
+   }
+   void setMinute(int m){
+    this->m=m;
+   }
+   void setSeconds(int s){
+    this->m=m;
+   }
 };
-
-int BankAccount::generate_accno = 1000;
 int menu(){
     int choice;
-    cout<<" 0. To exit\n 1.To Create Account\n 2. To Accept Details\n 3. To Display Details"<<endl;
+    cout<<"0.To exit"<<endl<<"1.To Create Object"<<endl;
     cin>>choice;
     return choice;
 }
+int menu2(){
+    int choice;
+    cout<<"0.To exit"<<endl<<"1.To Print Time at a particular object"<<endl;
+    cin>>choice;
+    return choice;
+}
+int main (void){
+    int size,choice;
+    int i = 0;
+     cout<<"Enter the size of the Time Array";
+     cin>>size;
+    Time **tptr=new Time *[size];
 
-int main()
-{
-    BankAccount *accptr;
-    int choice;    
-    while((choice=menu())!=0){
+     while(((choice=menu())!=0)&&i<size){
         switch (choice)
         {
-        case 1 :
-            accptr = new BankAccount;
+        case 1:{
+            tptr[i]=new Time();
+            tptr[i]->acceptTime();
             break;
-        case 2 :
-           accptr->acceptaccountDeatils();
-            break;
-        case 3:
-           accptr->displayAccountDeatils();
-            break;
-        
+            }
         default:
             break;
         }
-    }
-    delete accptr;
-    accptr = NULL;
-
-    return 0;
-}
-
-int main1()
-{
-    BankAccount acc1("rohan", 10000);
-    BankAccount acc2("nilesh", 15000);
-    BankAccount acc3("nitin", 20000);
-    BankAccount acc4("Rajiv", 20000);
-    BankAccount acc5("yogesh", 20000);
-
-    acc1.displayAccountDeatils();
-    acc2.displayAccountDeatils();
-    acc3.displayAccountDeatils();
-    acc4.displayAccountDeatils();
-    acc5.displayAccountDeatils();
-
-    return 0;
+        i++;
+     }
+     while((choice=menu2()!=0)){
+            cout<<"Enter index to get that objects time "<<endl;
+            cin>>i;
+           tptr[i]->printTime();
+     }
+     for(i=0;i<size;i++){
+        delete tptr[i];
+        tptr[i]=NULL;
+     }
 }
