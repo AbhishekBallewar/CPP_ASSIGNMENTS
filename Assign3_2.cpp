@@ -22,6 +22,7 @@ class Stack{
     arr[++top]=num;
     return -1;
   }
+
   int pop(){
    if(isEmpty()){
     cout<<"Stack is Empty"<<endl;
@@ -30,6 +31,7 @@ class Stack{
    
     return arr[top--];
   }
+
   int peek(){
     if(isEmpty()){
     cout<<"Stack is Empty"<<endl;
@@ -37,12 +39,26 @@ class Stack{
    }
    return arr[top];
   }
+
+  int printStack(){
+         if(isEmpty()){
+            cout<<"Stack is empty";
+            return -1;
+          }
+          while(top!=-1){
+            cout<<"Element at index "<<top<<"="<<arr[top--]<<endl;
+          }
+          return 0;
+  }
+
   bool isEmpty(){
        return (top==-1);
   }
+
   bool isFull(){
          return (top==(size-1)); 
   }
+
   ~Stack(){
     delete []arr;
   }
@@ -51,6 +67,7 @@ int menu(){
   int choice;
     cout<<"0.To Exit"<<endl<<"1.To Push"<<endl;
     cout<<"2.To Pop"<<endl<<"3.To Peek"<<endl;
+    cout<<"4.To Print stack";
     cout<<endl;
     
     cin>>choice;
@@ -62,30 +79,33 @@ int main (void){
   int size;
   cout<<"Enter the size of the array"<<endl;
   cin>>size;
-  Stack st[size];
+  Stack st(size);
   int num;
   int poped;
   int peeked;
   
-  enum Cases{EXIT=0,PUSH=1,POP,PEEK};
-      while((choice= menu())!=0){
+  enum Cases{EXIT=0,PUSH=1,POP,PEEK,PRINTSTACK};
+      while((choice = menu())!=0){
          switch (Cases(choice))
          {
          case PUSH:
          cout<<"Enter number to be pushed"<<endl;
          cin>>num;
-          st->push(num);
+          st.push(num);
           break;
           case POP:
-           poped = st->pop();
+           poped = st.pop();
           if(poped!=-1){
           cout<<"popped element is"<<poped<<endl;
           }
           break;
           case PEEK:
-          peeked = st->peek();
+          peeked = st.peek();
          if(peeked!=-1){
           cout<<"peek element is"<<peeked<<endl;
+          break;
+          case PRINTSTACK:
+          st.printStack();
           break;
          
          default:
